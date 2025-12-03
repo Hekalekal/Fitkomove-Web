@@ -6,136 +6,293 @@
     <title>@yield('title', 'Fitkomove')</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
-        /* --- GLOBAL THEME --- */
+        /* --- MINIMALIST GLOBAL THEME --- */
         :root {
-            --primary-red: #E60000;
-            --dark-bg: #0a0a0a;
-            --card-bg: #141414;
+            --primary: #FC5200;
+            --primary-hover: #e04800;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
-            padding-top: 76px; /* Mencegah konten tertutup Navbar */
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        h1, h2, h3, h4, h5, .navbar-brand, .btn {
-            font-family: 'Teko', sans-serif; /* Font Sporty yang Tegas */
-            text-transform: uppercase;
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-primary);
         }
 
-        /* --- NAVBAR --- */
+        .display-1 { font-size: 4.5rem; font-weight: 700; }
+        .display-2 { font-size: 3.5rem; font-weight: 700; }
+        
+        p { color: var(--text-secondary); }
+
+        /* --- NAVBAR MINIMALIST --- */
         .navbar {
-            background-color: rgba(0, 0, 0, 0.95);
-            border-bottom: 2px solid var(--primary-red);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
         }
-        
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary) !important;
+            letter-spacing: -0.02em;
+        }
+
+        .navbar-brand span {
+            color: var(--primary);
+        }
+
         .nav-link {
-            font-size: 1.2rem;
-            color: #ccc !important;
-            transition: color 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-red) !important;
+            color: var(--text-secondary) !important;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: color 0.2s ease;
         }
 
-        /* --- BUTTONS --- */
-        .btn-red {
-            background-color: var(--primary-red);
-            color: white;
-            border: none;
-            border-radius: 0;
-            padding: 10px 30px;
-            font-size: 1.3rem;
-            letter-spacing: 1px;
-            transition: all 0.3s;
-            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); /* Efek miring sporty */
+        .nav-link:hover {
+            color: var(--text-primary) !important;
         }
 
-        .btn-red:hover {
-            background-color: #ff1a1a;
-            transform: translateX(5px);
-            color: white;
-        }
-
-        .btn-outline-red {
-            background-color: transparent;
-            color: var(--primary-red);
-            border: 2px solid var(--primary-red);
-            border-radius: 0;
-            padding: 8px 30px;
-            font-size: 1.3rem;
-            letter-spacing: 1px;
-        }
-
-        .btn-outline-red:hover {
-            background-color: var(--primary-red);
-            color: white;
-        }
-
-        /* --- CARDS & FORMS --- */
-        .custom-card {
-            background-color: var(--card-bg);
-            border: 1px solid #333;
+        /* --- BUTTONS MINIMALIST --- */
+        .btn {
+            font-weight: 500;
+            font-size: 0.9375rem;
+            padding: 0.625rem 1.5rem;
             border-radius: 8px;
-            overflow: hidden;
+            transition: all 0.2s ease;
+            border: none;
         }
 
-        .form-control {
-            background-color: #222;
-            border: 1px solid #444;
+        .btn-primary {
+            background-color: var(--primary);
             color: white;
-            padding: 12px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        /* --- CARDS MINIMALIST --- */
+        .card-minimal {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-minimal:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        /* --- FORMS --- */
+        .form-control {
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+            background-color: var(--bg-primary);
         }
 
         .form-control:focus {
-            background-color: #222;
-            border-color: var(--primary-red);
-            color: white;
-            box-shadow: 0 0 10px rgba(230, 0, 0, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(252, 82, 0, 0.1);
         }
 
-        /* Hero Image Overlay */
-        .hero-overlay {
-            background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 100%);
+        .form-label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- SECTIONS --- */
+        .section-padding {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0 2rem;
+            margin-top: 6rem;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* --- UTILITIES --- */
+        .text-secondary { color: var(--text-secondary) !important; }
+        .bg-secondary { background-color: var(--bg-secondary) !important; }
+        .badge-minimal {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.375rem 0.875rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
         }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand fs-2" href="{{ url('/') }}">
-                <span style="color: white;">FIT</span><span style="color: var(--primary-red);">KOMOVE</span>
+            <a class="navbar-brand" href="{{ url('/') }}">
+                Fit<span>komove</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center gap-3">
+                <ul class="navbar-nav ms-auto align-items-center gap-2">
                     @auth
-                        <li class="nav-item"><a href="{{ url('/dashboard') }}" class="btn btn-red">Dashboard</a></li>
+                        <li class="nav-item">
+                            <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
+                        </li>
                     @else
-                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Login</a></li>
-                        <li class="nav-item"><a href="{{ route('register') }}" class="btn btn-red">Sign Up</a></li>
+                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
+                        <li class="nav-item"><a href="{{ route('register') }}" class="btn btn-primary">Get started</a></li>
                     @endauth
                 </ul>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow-1">
+    <!-- MAIN CONTENT -->
+    <main style="padding-top: 80px;">
         @yield('content')
     </main>
 
-    <footer class="bg-black text-center py-4 border-top border-dark mt-auto">
-        <p class="mb-0 text-secondary">&copy; {{ date('Y') }} SportTracker Inc.</p>
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">Fitkomove</h5>
+                    <p class="text-secondary small mb-4">
+                        Track your fitness journey with precision and simplicity.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-link"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="footer-link"><i class="bi bi-twitter-x fs-5"></i></a>
+                        <a href="#" class="footer-link"><i class="bi bi-youtube fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h6 class="fw-semibold mb-3">Product</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="footer-link">Features</a>
+                        <a href="#" class="footer-link">Pricing</a>
+                        <a href="#" class="footer-link">Download</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h6 class="fw-semibold mb-3">Company</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="footer-link">About</a>
+                        <a href="#" class="footer-link">Blog</a>
+                        <a href="#" class="footer-link">Careers</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-6">
+                    <h6 class="fw-semibold mb-3">Support</h6>
+                    <div class="d-flex flex-column gap-2">
+                        <a href="#" class="footer-link">Help Center</a>
+                        <a href="#" class="footer-link">Contact</a>
+                        <a href="#" class="footer-link">Privacy</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top mt-5 pt-4 text-center">
+                <small class="text-secondary">&copy; {{ date('Y') }} Fitkomove. All rights reserved.</small>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

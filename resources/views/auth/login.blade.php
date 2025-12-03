@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container d-flex align-items-center justify-content-center" style="min-height: 85vh;">
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="custom-card p-4 shadow-lg">
-            <div class="text-center mb-4">
-                <h2 class="text-white fw-bold">MEMBER LOGIN</h2>
-                <p class="text-secondary">Welcome back, Athlete!</p>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 85vh;">
+        <div class="col-12 col-md-5 col-lg-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-2">Welcome back</h2>
+                <p class="text-secondary">Sign in to continue to your dashboard</p>
             </div>
             
             @if ($errors->any())
-                <div class="alert alert-danger text-white mb-4 border-0" style="background-color: #e60000;">
+                <div class="alert alert-danger border-0 shadow-sm mb-4" 
+                     style="background-color: #fee2e2; color: #dc2626; border-radius: 12px;">
                     <ul class="mb-0 ps-3">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -18,26 +19,33 @@
                     </ul>
                 </div>
             @endif
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
+                
                 <div class="mb-3">
-                    <label class="text-secondary mb-1">Email Address</label>
+                    <label class="form-label">Email address</label>
                     <input type="email" name="email" class="form-control" 
-                           placeholder="name@example.com" value="{{ old('email') }}" required>
+                           placeholder="you@example.com" value="{{ old('email') }}" required autofocus>
                 </div>
                 
                 <div class="mb-4">
-                    <label class="text-secondary mb-1">Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    <div class="d-flex justify-content-between mb-2">
+                        <label class="form-label">Password</label>
+                        <a href="#" class="text-decoration-none small" style="color: var(--primary);">Forgot?</a>
+                    </div>
+                    <input type="password" name="password" class="form-control" placeholder="Enter password" required>
                 </div>
 
-                <button type="submit" class="btn btn-red w-100 py-2">LOGIN</button>
-            </form>
+                <button type="submit" class="btn btn-primary w-100 mb-3">
+                    Sign in
+                </button>
 
-            <div class="text-center mt-4">
-                <p class="text-secondary mb-0">Belum punya akun?</p>
-                <a href="{{ route('register') }}" class="text-danger text-decoration-none fw-bold">Daftar Sekarang</a>
-            </div>
+                <div class="text-center">
+                    <span class="text-secondary small">Don't have an account? </span>
+                    <a href="{{ route('register') }}" class="text-decoration-none fw-medium" style="color: var(--primary);">Sign up</a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

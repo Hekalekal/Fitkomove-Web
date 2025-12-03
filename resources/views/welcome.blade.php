@@ -1,232 +1,300 @@
 @extends('layouts.app')
 
-@section('title', 'Fitkomove - Limit is Just an Illusion')
+@section('title', 'Fitkomove - Track Your Fitness Journey')
 
 @section('content')
 
-    <section class="hero-section d-flex align-items-center text-center text-lg-start" style="min-height: 100vh;">
-        <div class="container position-relative z-2">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1 class="display-1 fw-bold mb-3" style="font-family: 'Teko', sans-serif; line-height: 0.9;">
-                        LEVEL UP YOUR <br>
-                        <span style="color: var(--primary-red);">FITNESS GAME</span>
-                    </h1>
-                    <p class="lead mb-5 w-75 d-none d-lg-block" style="color: #ccc;">
-                        Platform monitoring performa olahraga berbasis data presisi. 
-                        Analisis detak jantung, kalori, dan progres latihanmu dalam satu dashboard futuristik.
-                    </p>
-                    <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
-                        <a href="{{ route('register') }}" class="btn btn-red btn-lg px-5 py-3">MULAI SEKARANG</a>
-                        <a href="#about" class="btn btn-outline-light btn-lg px-5 py-3 rounded-0" style="border: 2px solid white;">PELAJARI</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4 text-white animate-bounce">
-            <i class="bi bi-mouse fs-3"></i>
-            <span class="d-block small">Scroll</span>
-        </div>
-    </section>
-
-    <section class="py-5 border-bottom border-secondary" style="background-color: var(--card-bg);">
-        <div class="container">
-            <div class="row g-4 justify-content-center">
-                <div class="col-md-4 stat-box">
-                    <div class="stat-number">10K+</div>
-                    <div class="text-uppercase fw-bold text-secondary">Pengguna Aktif</div>
-                </div>
-                <div class="col-md-4 stat-box">
-                    <div class="stat-number">500+</div>
-                    <div class="text-uppercase fw-bold text-secondary">Program Latihan</div>
-                </div>
-                <div class="col-md-4 stat-box">
-                    <div class="stat-number">1M+</div>
-                    <div class="text-uppercase fw-bold text-secondary">Kalori Terbakar</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="py-5 overflow-hidden">
-        <div class="container py-5">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6">
-                    <div class="position-relative">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 border border-danger border-2" style="transform: translate(15px, 15px); z-index: -1;"></div>
-                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             class="img-fluid w-100 grayscale-img" alt="Trainer" style="filter: grayscale(100%); transition: 0.3s;">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <h2 class="section-title">KENAPA <span style="color: var(--primary-red);">FITKOMOVE?</span></h2>
-                    <p class="text-secondary mb-4">
-                        Kami bukan sekadar aplikasi pencatat lari. Kami adalah ekosistem yang dirancang untuk atlet yang serius ingin berkembang. Dengan teknologi AI terbaru, kami memberikan insight yang tidak bisa diberikan aplikasi lain.
-                    </p>
-                    <ul class="list-unstyled">
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-danger me-3 fs-5"></i>
-                            <span class="fw-bold">Real-time Heart Rate Monitoring</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-danger me-3 fs-5"></i>
-                            <span class="fw-bold">Personalized AI Coach</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-danger me-3 fs-5"></i>
-                            <span class="fw-bold">Komunitas Global Kompetitif</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="py-5" style="background-color: var(--card-bg);">
-        <div class="container py-5">
-            <div class="text-center">
-                <h2 class="section-title">FITUR <span style="color: var(--primary-red);">UNGGULAN</span></h2>
-                <p class="section-subtitle">Teknologi canggih dalam genggaman Anda.</p>
-            </div>
-
-            <div class="row g-4 mt-4">
-                <div class="col-md-4">
-                    <div class="custom-card p-4 h-100 text-center">
-                        <div class="display-4 text-danger mb-3"><i class="bi bi-fire"></i></div>
-                        <h4 class="fw-bold">Calorie Burn</h4>
-                        <p class="text-secondary small">Algoritma presisi tinggi menghitung setiap kalori yang Anda bakar.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="custom-card p-4 h-100 text-center">
-                        <div class="display-4 text-danger mb-3"><i class="bi bi-graph-up-arrow"></i></div>
-                        <h4 class="fw-bold">Analytics</h4>
-                        <p class="text-secondary small">Grafik performa mingguan untuk memantau kemajuan fisik Anda.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="custom-card p-4 h-100 text-center">
-                        <div class="display-4 text-danger mb-3"><i class="bi bi-trophy-fill"></i></div>
-                        <h4 class="fw-bold">Leaderboard</h4>
-                        <p class="text-secondary small">Bersaing dengan teman dan jadilah juara di papan peringkat.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5">
-        <div class="container py-5">
-            <div class="text-center">
-                <h2 class="section-title">KATA <span style="color: var(--primary-red);">MEREKA</span></h2>
-                <p class="section-subtitle">Bergabung dengan ribuan atlet yang puas.</p>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <p class="fst-italic text-secondary">"Aplikasi gila! Trackingnya akurat banget, dan fitur dark modenya bikin mata nyaman pas lari malem."</p>
-                        <div class="d-flex align-items-center mt-4">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="testimonial-avatar me-3">
-                            <div>
-                                <h6 class="fw-bold mb-0">Raka Pratama</h6>
-                                <small class="text-danger">Marathon Runner</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <p class="fst-italic text-secondary">"Suka banget sama fitur leaderboardnya. Jadi makin semangat ngegym biar rank naik terus tiap minggu."</p>
-                        <div class="d-flex align-items-center mt-4">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" class="testimonial-avatar me-3">
-                            <div>
-                                <h6 class="fw-bold mb-0">Siti Aminah</h6>
-                                <small class="text-danger">Gym Enthusiast</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <p class="fst-italic text-secondary">"Simpel, cepat, dan gak ribet. UI-nya sporty banget, beda sama aplikasi kesehatan lain yang kaku."</p>
-                        <div class="d-flex align-items-center mt-4">
-                            <img src="https://randomuser.me/api/portraits/men/85.jpg" class="testimonial-avatar me-3">
-                            <div>
-                                <h6 class="fw-bold mb-0">Budi Santoso</h6>
-                                <small class="text-danger">Cyclist</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-5  text-center text-white position-relative overflow-hidden">
-        <div class="container position-relative z-2">
-            <h2 class="display-5 fw-bold mb-3" style="font-family: 'Teko', sans-serif;">SIAP MENGUBAH HIDUPMU?</h2>
-            <p class="lead mb-4">Jangan tunggu besok. Tubuh atletis dimulai dari keputusan hari ini.</p>
-            <a href="{{ route('register') }}" class="btn btn-dark btn-lg px-5 py-3 rounded-0 fw-bold border border-white">GABUNG SEKARANG</a>
-        </div>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    
-
-    <footer class="footer-section">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-4">
-                    <a class="navbar-brand fs-2 fw-bold fst-italic footer-brand" href="#">
-                        FIT<span>KOMOVE</span>
+<!-- HERO SECTION -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 fade-in-up">
+                <h1 class="display-1 mb-4">
+                    Track your<br>
+                    fitness<br>
+                    <span style="color: var(--primary);">journey</span>
+                </h1>
+                <p class="lead text-secondary mb-5">
+                    Simple, powerful fitness tracking. Monitor your progress, set goals, and achieve more.
+                </p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
+                        Get started free
                     </a>
-                    <p class="text-secondary mt-3 pe-lg-5">
-                        Platform monitoring olahraga #1 di Indonesia. Kami membantu Anda mencapai potensi maksimal melalui data dan teknologi.
-                    </p>
-                    <div class="mt-4">
-                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="bi bi-tiktok"></i></a>
+                    <a href="#features" class="btn btn-outline btn-lg">
+                        Learn more
+                    </a>
+                </div>
+                <div class="mt-5">
+                    <div class="d-flex gap-4 text-center text-lg-start">
+                        <div>
+                            <h3 class="fw-bold mb-0">10K+</h3>
+                            <small class="text-secondary">Active users</small>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">50M+</h3>
+                            <small class="text-secondary">Workouts tracked</small>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0">4.9</h3>
+                            <small class="text-secondary">App rating</small>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-lg-2 col-6">
-                    <h5 class="footer-heading">Menu</h5>
-                    <a href="#" class="footer-link">Beranda</a>
-                    <a href="#about" class="footer-link">Tentang Kami</a>
-                    <a href="#features" class="footer-link">Fitur</a>
-                    <a href="#" class="footer-link">Harga</a>
-                </div>
-
-                <div class="col-lg-2 col-6">
-                    <h5 class="footer-heading">Bantuan</h5>
-                    <a href="#" class="footer-link">FAQ</a>
-                    <a href="#" class="footer-link">Privacy Policy</a>
-                    <a href="#" class="footer-link">Terms of Service</a>
-                    <a href="#" class="footer-link">Kontak Support</a>
-                </div>
-
-                <div class="col-lg-4">
-                    <h5 class="footer-heading">Newsletter</h5>
-                    <p class="text-secondary small">Dapatkan tips latihan mingguan langsung ke inbox Anda.</p>
-                    <form action="#" class="mt-3">
-                        <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Email Anda..." style="border-right: none;">
-                            <button class="btn btn-red" type="button">SUBSCRIBE</button>
-                        </div>
-                    </form>
-                </div>
             </div>
-
-            <div class="border-top border-secondary mt-5 pt-4 text-center">
-                <small class="text-secondary">&copy; {{ date('Y') }} Fitkomove Inc. All rights reserved. Designed with 🔥 passion.</small>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         class="img-fluid rounded-3 shadow-lg" alt="Fitness tracking">
+                    <div class="position-absolute bottom-0 start-0 m-4 card-minimal p-3 shadow-lg" style="backdrop-filter: blur(12px); background-color: rgba(255,255,255,0.9);">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                <i class="bi bi-fire text-white fs-4"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold">450 kcal</h6>
+                                <small class="text-secondary">Burned today</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
+
+<!-- FEATURES SECTION -->
+<section id="features" class="section-padding bg-secondary">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge-minimal mb-3">Features</span>
+            <h2 class="section-title">Everything you need</h2>
+            <p class="section-subtitle mx-auto">
+                Powerful tools to help you reach your fitness goals, all in one place.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-heart-pulse fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Real-time tracking</h4>
+                    <p class="text-secondary mb-0">
+                        Monitor your heart rate, calories, and activity in real-time with precision.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-graph-up-arrow fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Progress insights</h4>
+                    <p class="text-secondary mb-0">
+                        Get detailed analytics and insights about your fitness journey.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-people fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Social features</h4>
+                    <p class="text-secondary mb-0">
+                        Connect with friends, share achievements, and stay motivated together.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-trophy fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Goal setting</h4>
+                    <p class="text-secondary mb-0">
+                        Set personalized goals and track your progress towards achieving them.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-calendar-check fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Workout plans</h4>
+                    <p class="text-secondary mb-0">
+                        Follow curated workout plans tailored to your fitness level and goals.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="card-minimal h-100">
+                    <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
+                        <i class="bi bi-phone fs-3" style="color: var(--primary);"></i>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Cross-platform</h4>
+                    <p class="text-secondary mb-0">
+                        Access your data anywhere, on any device. iOS, Android, and web.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-padding">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge-minimal mb-3">How it works</span>
+            <h2 class="section-title">Start in minutes</h2>
+            <p class="section-subtitle mx-auto">
+                Getting started is simple. Just three steps to begin your journey.
+            </p>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="mx-auto bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                        <span class="fw-bold fs-3" style="color: var(--primary);">1</span>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Create account</h4>
+                    <p class="text-secondary">
+                        Sign up in seconds with just your email. No credit card required.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="mx-auto bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                        <span class="fw-bold fs-3" style="color: var(--primary);">2</span>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Set your goals</h4>
+                    <p class="text-secondary">
+                        Tell us about your fitness goals and let us customize your experience.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <div class="mx-auto bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mb-4" style="width: 80px; height: 80px;">
+                        <span class="fw-bold fs-3" style="color: var(--primary);">3</span>
+                    </div>
+                    <h4 class="h5 fw-semibold mb-3">Start tracking</h4>
+                    <p class="text-secondary">
+                        Begin your first workout and watch your progress unfold.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section-padding bg-secondary">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge-minimal mb-3">Testimonials</span>
+            <h2 class="section-title">Loved by thousands</h2>
+            <p class="section-subtitle mx-auto">
+                See what our users have to say about their experience.
+            </p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="card-minimal">
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                    <p class="text-secondary mb-4">
+                        "The interface is so clean and intuitive. I love how easy it is to track my workouts and see my progress over time."
+                    </p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://i.pravatar.cc/100?img=1" alt="User" class="rounded-circle" width="48" height="48">
+                        <div>
+                            <h6 class="mb-0 fw-semibold">Sarah Johnson</h6>
+                            <small class="text-secondary">Marathon Runner</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card-minimal">
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                    <p class="text-secondary mb-4">
+                        "Finally, a fitness app that doesn't overcomplicate things. It just works, and I can focus on my workouts."
+                    </p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://i.pravatar.cc/100?img=12" alt="User" class="rounded-circle" width="48" height="48">
+                        <div>
+                            <h6 class="mb-0 fw-semibold">Michael Chen</h6>
+                            <small class="text-secondary">Fitness Enthusiast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card-minimal">
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                    <p class="text-secondary mb-4">
+                        "The analytics and insights have helped me understand my fitness journey better than ever before."
+                    </p>
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="https://i.pravatar.cc/100?img=25" alt="User" class="rounded-circle" width="48" height="48">
+                        <div>
+                            <h6 class="mb-0 fw-semibold">Emily Rodriguez</h6>
+                            <small class="text-secondary">Yoga Instructor</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="section-padding">
+    <div class="container">
+        <div class="card-minimal text-center" style="background: linear-gradient(135deg, #FC5200 0%, #ff6b35 100%); border: none; padding: 4rem 2rem;">
+            <h2 class="section-title text-white mb-3">Ready to start your journey?</h2>
+            <p class="text-white opacity-75 mb-4 mx-auto" style="max-width: 600px;">
+                Join thousands of athletes who are already tracking their fitness with Fitkomove.
+            </p>
+            <a href="{{ route('register') }}" class="btn btn-lg px-5" style="background-color: white; color: var(--primary); font-weight: 600;">
+                Get started free
+            </a>
+        </div>
+    </div>
+</section>
 
 @endsection
