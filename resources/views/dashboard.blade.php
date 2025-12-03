@@ -238,6 +238,33 @@
                     @endforeach
                 </div>
                 
+                <!-- Legend: Keterangan Ikon Olahraga -->
+                @php
+                    $uniqueRecommendations = collect($calendarData['days'])
+                        ->filter(fn($day) => isset($day['recommended']) && $day['recommended'])
+                        ->pluck('recommended')
+                        ->unique('name')
+                        ->values();
+                @endphp
+                
+                @if($uniqueRecommendations->count() > 0)
+                <div class="mt-3 pt-3 border-top">
+                    <small class="text-secondary d-block mb-2">
+                        <i class="bi bi-list-ul me-1"></i><strong>Keterangan Ikon Rekomendasi:</strong>
+                    </small>
+                    <div class="d-flex flex-wrap gap-3">
+                        @foreach($uniqueRecommendations as $rec)
+                        <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-3" style="background-color: var(--bg-secondary); border: 1px solid var(--border);">
+                            <span class="indicator recommended" style="width: 24px; height: 24px; font-size: 0.75rem;">
+                                <i class="bi {{ $rec['icon'] ?? 'bi-lightning' }}"></i>
+                            </span>
+                            <span class="fw-medium" style="font-size: 0.875rem;">{{ $rec['name'] }}</span>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
                 <div class="mt-3 pt-3 border-top">
                     <small class="text-secondary">
                         <i class="bi bi-info-circle me-1"></i>
@@ -448,7 +475,10 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal Lahir</label>
-                            <input type="date" name="birth_date" class="form-control" value="{{ $user->birth_date?->format('Y-m-d') }}">
+                            <div class="custom-datetime-input">
+                                <input type="text" name="birth_date" id="birthDate" class="form-control" value="{{ $user->birth_date?->format('Y-m-d') }}" placeholder="Pilih tanggal lahir" readonly>
+                                <i class="bi bi-calendar-heart input-icon"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -795,6 +825,70 @@
         // Browser Notification for Reminders
         if ('Notification' in window && Notification.permission === 'default') {
             Notification.requestPermission();
+        }
+
+        // Birth Date Picker with custom year selector
+        if (document.getElementById('birthDate')) {
+            const birthPicker = flatpickr("#birthDate", {
+                locale: "id",
+                dateFormat: "Y-m-d",
+                altInput: true,
+                altFormat: "j F Y",
+                disableMobile: true,
+                maxDate: "today",
+                defaultDate: document.getElementById('birthDate').value || null,
+                monthSelectorType: "dropdown",
+                onReady: function(selectedDates, dateStr, instance) {
+                    if (instance.altInput) {
+                        instance.altInput.classList.add('form-control');
+                        instance.altInput.style.paddingLeft = '2.5rem';
+                        instance.altInput.style.cursor = 'pointer';
+                    }
+                    
+                    // Replace year input with dropdown
+                    const yearInput = instance.calendarContainer.querySelector('.numInputWrapper');
+                    if (yearInput) {
+                        const currentYear = new Date().getFullYear();
+                        const startYear = 1940;
+                        const selectedYear = selectedDates[0] ? selectedDates[0].getFullYear() : currentYear - 20;
+                        
+                        // Create year dropdown
+                        const yearSelect = document.createElement('select');
+                        yearSelect.className = 'flatpickr-year-dropdown';
+                        yearSelect.style.cssText = 'background: var(--bg-secondary); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-weight: 600; font-size: 14px; cursor: pointer; outline: none;';
+                        
+                        for (let year = currentYear; year >= startYear; year--) {
+                            const option = document.createElement('option');
+                            option.value = year;
+                            option.textContent = year;
+                            if (year === selectedYear) option.selected = true;
+                            yearSelect.appendChild(option);
+                        }
+                        
+                        yearSelect.addEventListener('change', function() {
+                            const currentDate = instance.selectedDates[0] || new Date();
+                            const newDate = new Date(currentDate);
+                            newDate.setFullYear(parseInt(this.value));
+                            instance.setDate(newDate, true);
+                            instance.jumpToDate(newDate);
+                        });
+                        
+                        yearInput.replaceWith(yearSelect);
+                        instance._yearSelect = yearSelect;
+                    }
+                },
+                onMonthChange: function(selectedDates, dateStr, instance) {
+                    // Update year dropdown when navigating
+                    if (instance._yearSelect && instance.currentYear) {
+                        instance._yearSelect.value = instance.currentYear;
+                    }
+                },
+                onYearChange: function(selectedDates, dateStr, instance) {
+                    if (instance._yearSelect) {
+                        instance._yearSelect.value = instance.currentYear;
+                    }
+                }
+            });
         }
     });
 </script>

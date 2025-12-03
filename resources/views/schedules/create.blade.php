@@ -52,11 +52,17 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal</label>
-                            <input type="date" name="scheduled_date" class="form-control" value="{{ old('scheduled_date', date('Y-m-d')) }}" required>
+                            <div class="custom-datetime-input">
+                                <input type="text" name="scheduled_date" id="scheduledDate" class="form-control" value="{{ old('scheduled_date', date('Y-m-d')) }}" placeholder="Pilih tanggal" required readonly>
+                                <i class="bi bi-calendar3 input-icon"></i>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Waktu</label>
-                            <input type="time" name="scheduled_time" class="form-control" value="{{ old('scheduled_time', '08:00') }}" required>
+                            <div class="custom-datetime-input">
+                                <input type="text" name="scheduled_time" id="scheduledTime" class="form-control" value="{{ old('scheduled_time', '08:00') }}" placeholder="--:--" required readonly>
+                                <i class="bi bi-clock input-icon"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -81,4 +87,40 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Date Picker
+    flatpickr("#scheduledDate", {
+        locale: "id",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "j F Y",
+        disableMobile: true,
+        defaultDate: "{{ old('scheduled_date', date('Y-m-d')) }}",
+        monthSelectorType: "dropdown",
+        animate: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.altInput.classList.add('form-control');
+        }
+    });
+
+    // Time Picker
+    flatpickr("#scheduledTime", {
+        locale: "id",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        disableMobile: true,
+        defaultDate: "{{ old('scheduled_time', '08:00') }}",
+        animate: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.altInput?.classList.add('form-control');
+        }
+    });
+});
+</script>
 @endsection

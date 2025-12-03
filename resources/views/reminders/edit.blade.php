@@ -48,7 +48,10 @@
 
                     <div class="mb-3">
                         <label class="form-label">Waktu Pengingat</label>
-                        <input type="time" name="reminder_time" class="form-control" value="{{ old('reminder_time', $reminder->formatted_time) }}" required>
+                        <div class="custom-datetime-input">
+                            <input type="text" name="reminder_time" id="reminderTime" class="form-control" value="{{ old('reminder_time', $reminder->formatted_time) }}" placeholder="--:--" required readonly>
+                            <i class="bi bi-clock input-icon"></i>
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -101,4 +104,20 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("#reminderTime", {
+        locale: "id",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        disableMobile: true,
+        defaultDate: document.getElementById('reminderTime').value || null
+    });
+});
+</script>
 @endsection

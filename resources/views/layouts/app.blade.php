@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Flatpickr Custom Date/Time Picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -638,6 +640,240 @@
             }
         }
 
+        /* ===== CUSTOM FLATPICKR STYLES ===== */
+        .flatpickr-calendar {
+            background: var(--card-bg) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 10px 40px var(--shadow) !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .flatpickr-calendar:before,
+        .flatpickr-calendar:after {
+            display: none !important;
+        }
+
+        .flatpickr-months {
+            background: transparent !important;
+        }
+
+        .flatpickr-months .flatpickr-month {
+            background: transparent !important;
+            color: var(--text) !important;
+            fill: var(--text) !important;
+        }
+
+        .flatpickr-current-month {
+            color: var(--text) !important;
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            background: var(--bg-secondary) !important;
+            color: var(--text) !important;
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months option {
+            background: var(--card-bg) !important;
+            color: var(--text) !important;
+        }
+
+        .flatpickr-current-month input.cur-year {
+            color: var(--text) !important;
+            cursor: text !important;
+            padding: 2px 6px !important;
+            border-radius: 4px !important;
+            border: 1px solid transparent !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .flatpickr-current-month input.cur-year:hover,
+        .flatpickr-current-month input.cur-year:focus {
+            border-color: var(--primary) !important;
+            background: var(--bg-secondary) !important;
+        }
+
+        /* Custom year dropdown for birth date */
+        .flatpickr-year-dropdown {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 24px !important;
+        }
+
+        .flatpickr-year-dropdown:hover {
+            border-color: var(--primary) !important;
+        }
+
+        .flatpickr-year-dropdown:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 2px var(--primary-light) !important;
+        }
+
+        .flatpickr-year-dropdown option {
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 8px;
+        }
+
+        /* Fix flatpickr month header layout */
+        .flatpickr-current-month {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            padding-top: 5px !important;
+        }
+
+        .flatpickr-current-month .flatpickr-monthDropdown-months {
+            margin: 0 !important;
+            padding: 4px 24px 4px 8px !important;
+            font-size: 14px !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month,
+        .flatpickr-months .flatpickr-next-month {
+            fill: var(--text) !important;
+            color: var(--text) !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover,
+        .flatpickr-months .flatpickr-next-month:hover {
+            color: var(--primary) !important;
+        }
+
+        .flatpickr-months .flatpickr-prev-month:hover svg,
+        .flatpickr-months .flatpickr-next-month:hover svg {
+            fill: var(--primary) !important;
+        }
+
+        .flatpickr-weekdays {
+            background: transparent !important;
+        }
+
+        span.flatpickr-weekday {
+            background: transparent !important;
+            color: var(--text-secondary) !important;
+            font-weight: 600 !important;
+        }
+
+        .flatpickr-days {
+            border: none !important;
+        }
+
+        .flatpickr-day {
+            color: var(--text) !important;
+            border-radius: 8px !important;
+        }
+
+        .flatpickr-day:hover {
+            background: var(--bg-secondary) !important;
+            border-color: var(--bg-secondary) !important;
+        }
+
+        .flatpickr-day.today {
+            background: var(--primary-light) !important;
+            border-color: var(--primary-light) !important;
+            color: var(--primary) !important;
+        }
+
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange,
+        .flatpickr-day.selected:hover,
+        .flatpickr-day.startRange:hover,
+        .flatpickr-day.endRange:hover {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: white !important;
+        }
+
+        .flatpickr-day.prevMonthDay,
+        .flatpickr-day.nextMonthDay {
+            color: var(--text-secondary) !important;
+        }
+
+        .flatpickr-day.flatpickr-disabled {
+            color: var(--text-secondary) !important;
+        }
+
+        /* Time Picker */
+        .flatpickr-time {
+            background: var(--bg-secondary) !important;
+            border-top: 1px solid var(--border) !important;
+        }
+
+        .flatpickr-time input {
+            background: var(--card-bg) !important;
+            color: var(--text) !important;
+        }
+
+        .flatpickr-time input:hover,
+        .flatpickr-time input:focus {
+            background: var(--card-bg) !important;
+        }
+
+        .flatpickr-time .flatpickr-time-separator {
+            color: var(--text) !important;
+        }
+
+        .flatpickr-time .flatpickr-am-pm {
+            background: var(--card-bg) !important;
+            color: var(--text) !important;
+        }
+
+        .flatpickr-time .flatpickr-am-pm:hover {
+            background: var(--primary) !important;
+            color: white !important;
+        }
+
+        .numInputWrapper span {
+            border-color: var(--border) !important;
+        }
+
+        .numInputWrapper span:hover {
+            background: var(--primary) !important;
+        }
+
+        .numInputWrapper span.arrowUp:after {
+            border-bottom-color: var(--text) !important;
+        }
+
+        .numInputWrapper span.arrowDown:after {
+            border-top-color: var(--text) !important;
+        }
+
+        .numInputWrapper span:hover.arrowUp:after {
+            border-bottom-color: white !important;
+        }
+
+        .numInputWrapper span:hover.arrowDown:after {
+            border-top-color: white !important;
+        }
+
+        /* Custom input wrapper with icon */
+        .custom-datetime-input {
+            position: relative;
+        }
+
+        .custom-datetime-input .form-control {
+            padding-left: 2.5rem !important;
+            cursor: pointer !important;
+        }
+
+        .custom-datetime-input .input-icon {
+            position: absolute;
+            left: 0.875rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+            z-index: 5;
+        }
+
         /* ===== ADDITIONAL DARK MODE FIXES ===== */
         /* Lead text */
         .lead {
@@ -946,6 +1182,9 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
     
     <!-- Dark Mode Script -->
     <script>

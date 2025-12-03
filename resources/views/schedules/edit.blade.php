@@ -53,11 +53,17 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal</label>
-                            <input type="date" name="scheduled_date" class="form-control" value="{{ old('scheduled_date', $schedule->scheduled_date->format('Y-m-d')) }}" required>
+                            <div class="custom-datetime-input">
+                                <input type="text" name="scheduled_date" id="scheduledDate" class="form-control" value="{{ old('scheduled_date', $schedule->scheduled_date->format('Y-m-d')) }}" placeholder="Pilih tanggal" required readonly>
+                                <i class="bi bi-calendar3 input-icon"></i>
+                            </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Waktu</label>
-                            <input type="time" name="scheduled_time" class="form-control" value="{{ old('scheduled_time', $schedule->formatted_time) }}" required>
+                            <div class="custom-datetime-input">
+                                <input type="text" name="scheduled_time" id="scheduledTime" class="form-control" value="{{ old('scheduled_time', $schedule->formatted_time) }}" placeholder="--:--" required readonly>
+                                <i class="bi bi-clock input-icon"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -91,4 +97,29 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    flatpickr("#scheduledDate", {
+        locale: "id",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "j F Y",
+        disableMobile: true,
+        defaultDate: document.getElementById('scheduledDate').value || null
+    });
+
+    flatpickr("#scheduledTime", {
+        locale: "id",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        disableMobile: true,
+        defaultDate: document.getElementById('scheduledTime').value || null
+    });
+});
+</script>
 @endsection

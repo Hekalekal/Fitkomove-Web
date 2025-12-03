@@ -53,15 +53,24 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tanggal</label>
-                            <input type="date" name="activity_date" class="form-control" value="{{ old('activity_date', date('Y-m-d')) }}" required>
+                            <div class="custom-datetime-input">
+                                <input type="text" name="activity_date" id="activityDate" class="form-control" value="{{ old('activity_date', date('Y-m-d')) }}" placeholder="Pilih tanggal" required readonly>
+                                <i class="bi bi-calendar3 input-icon"></i>
+                            </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Waktu Mulai</label>
-                            <input type="time" name="start_time" class="form-control" value="{{ old('start_time') }}">
+                            <div class="custom-datetime-input">
+                                <input type="text" name="start_time" id="startTime" class="form-control" value="{{ old('start_time') }}" placeholder="--:--" readonly>
+                                <i class="bi bi-clock input-icon"></i>
+                            </div>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Waktu Selesai</label>
-                            <input type="time" name="end_time" class="form-control" value="{{ old('end_time') }}">
+                            <div class="custom-datetime-input">
+                                <input type="text" name="end_time" id="endTime" class="form-control" value="{{ old('end_time') }}" placeholder="--:--" readonly>
+                                <i class="bi bi-clock-history input-icon"></i>
+                            </div>
                         </div>
                     </div>
 
@@ -113,4 +122,55 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Date Picker
+    flatpickr("#activityDate", {
+        locale: "id",
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "j F Y",
+        disableMobile: true,
+        defaultDate: "{{ old('activity_date', date('Y-m-d')) }}",
+        monthSelectorType: "dropdown",
+        animate: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.altInput.classList.add('form-control');
+        }
+    });
+
+    // Start Time Picker
+    flatpickr("#startTime", {
+        locale: "id",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        disableMobile: true,
+        defaultDate: "{{ old('start_time') }}",
+        animate: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.altInput?.classList.add('form-control');
+        }
+    });
+
+    // End Time Picker
+    flatpickr("#endTime", {
+        locale: "id",
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        disableMobile: true,
+        defaultDate: "{{ old('end_time') }}",
+        animate: true,
+        onReady: function(selectedDates, dateStr, instance) {
+            instance.altInput?.classList.add('form-control');
+        }
+    });
+});
+</script>
 @endsection
