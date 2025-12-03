@@ -21,8 +21,8 @@
                     <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                         Get started free
                     </a>
-                    <a href="#features" class="btn btn-outline btn-lg">
-                        Learn more
+                    <a href="{{ route('demo') }}" class="btn btn-outline btn-lg">
+                        <i class="bi bi-play-circle me-2"></i>Lihat Demo
                     </a>
                 </div>
                 <div class="mt-5">
@@ -46,7 +46,7 @@
                 <div class="position-relative">
                     <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          class="img-fluid rounded-3 shadow-lg" alt="Fitness tracking">
-                    <div class="position-absolute bottom-0 start-0 m-4 card-minimal p-3 shadow-lg" style="backdrop-filter: blur(12px); background-color: rgba(255,255,255,0.9);">
+                    <div class="position-absolute bottom-0 start-0 m-4 card-minimal p-3 shadow-lg floating-card">
                         <div class="d-flex align-items-center gap-3">
                             <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                                 <i class="bi bi-fire text-white fs-4"></i>
