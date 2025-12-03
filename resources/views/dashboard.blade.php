@@ -32,7 +32,14 @@
             <h1 class="h2 fw-bold mb-1">Dashboard</h1>
             <p class="text-secondary mb-0">Welcome back, {{ $user->name }}</p>
         </div>
-        <span class="badge-minimal">{{ date('l, F j') }}</span>
+        <div class="d-flex align-items-center gap-3">
+            <!-- Streak Badge -->
+            <div class="streak-badge {{ (is_object($user) && method_exists($user, 'hasActivityToday') && $user->hasActivityToday()) ? 'active' : '' }}">
+                <i class="bi bi-fire"></i>
+                <span class="streak-count">{{ $user->current_streak ?? 0 }}</span>
+            </div>
+            <span class="badge-minimal">{{ date('l, F j') }}</span>
+        </div>
     </div>
 
     <div class="row g-4">
@@ -47,7 +54,7 @@
                              class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover; border: 4px solid var(--border);">
                     @else
                         <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" 
-                             style="width: 100px; height: 100px; background: linear-gradient(135deg, #FC5200, #ff6b35); border: 4px solid var(--border);">
+                             style="width: 100px; height: 100px; background: linear-gradient(135deg, #ba1a1a, #ff5449); border: 4px solid var(--border);">
                             <span class="display-5 fw-bold text-white">{{ substr($user->name, 0, 1) }}</span>
                         </div>
                     @endif
@@ -142,7 +149,7 @@
                 <div class="col-md-4">
                     <div class="card-minimal">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                            <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                                 <i class="bi bi-fire fs-4" style="color: var(--primary);"></i>
                             </div>
                             <div>
@@ -155,7 +162,7 @@
                 <div class="col-md-4">
                     <div class="card-minimal">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                            <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                                 <i class="bi bi-clock fs-4" style="color: var(--primary);"></i>
                             </div>
                             <div>
@@ -168,7 +175,7 @@
                 <div class="col-md-4">
                     <div class="card-minimal">
                         <div class="d-flex align-items-center gap-3">
-                            <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                            <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                                 <i class="bi bi-trophy fs-4" style="color: var(--primary);"></i>
                             </div>
                             <div>
@@ -189,6 +196,57 @@
                     <canvas id="activityChart"></canvas>
                 </div>
             </div>
+
+            <!-- Monthly Calendar -->
+            @if(isset($calendarData))
+            <div class="card-minimal mb-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="h5 fw-semibold mb-0">
+                        <i class="bi bi-calendar3 me-2"></i>Kalender {{ $calendarData['month'] }} {{ $calendarData['year'] }}
+                    </h4>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-success bg-opacity-10 text-success"><i class="bi bi-check-circle me-1"></i>Selesai</span>
+                        <span class="badge bg-primary bg-opacity-10" style="color: var(--primary);"><i class="bi bi-star me-1"></i>Rekomendasi</span>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid">
+                    <!-- Weekday Headers -->
+                    @foreach($calendarData['weekdays'] as $weekday)
+                    <div class="calendar-header">{{ $weekday }}</div>
+                    @endforeach
+                    
+                    <!-- Calendar Days -->
+                    @foreach($calendarData['days'] as $day)
+                    <div class="calendar-day {{ $day['day'] === null ? 'empty' : '' }} {{ $day['isToday'] ?? false ? 'today' : '' }} {{ $day['isPast'] ?? false ? 'past' : '' }}">
+                        @if($day['day'])
+                        <span class="day-number">{{ $day['day'] }}</span>
+                        
+                        <div class="day-indicators">
+                            @if($day['hasActivity'] ?? false)
+                            <span class="indicator activity" title="Aktivitas selesai"><i class="bi bi-check-circle-fill"></i></span>
+                            @endif
+                            
+                            @if($day['recommended'] ?? false)
+                            <span class="indicator recommended" title="{{ $day['recommended']['name'] ?? 'Latihan' }}">
+                                <i class="bi {{ $day['recommended']['icon'] ?? 'bi-lightning' }}"></i>
+                            </span>
+                            @endif
+                        </div>
+                        @endif
+                    </div>
+                    @endforeach
+                </div>
+                
+                <div class="mt-3 pt-3 border-top">
+                    <small class="text-secondary">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Jadwal rekomendasi berdasarkan tujuan: <strong>{{ ucfirst($user->goal ?? 'maintain') }}</strong> 
+                        dengan intensitas <strong>{{ ucfirst($user->intensity_level ?? 'medium') }}</strong>
+                    </small>
+                </div>
+            </div>
+            @endif
 
             <!-- Today's Schedule -->
             <div class="mb-5">
@@ -251,7 +309,7 @@
                     @foreach($reminders as $reminder)
                     <div class="col-md-6">
                         <div class="card-minimal d-flex align-items-center gap-3">
-                            <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                            <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                                 <i class="bi {{ $reminder->type_icon }} fs-4" style="color: var(--primary);"></i>
                             </div>
                             <div>
@@ -279,7 +337,7 @@
                     <div class="card-minimal">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                                <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                                     <i class="bi {{ $activity->type_icon }} fs-4" style="color: var(--primary);"></i>
                                 </div>
                                 <div>
@@ -310,7 +368,7 @@
                         <div class="card-minimal h-100">
                             <div class="d-flex align-items-start justify-content-between mb-3">
                                 <div>
-                                    <span class="badge-minimal mb-2">{{ $rec['level'] }}</span>
+                                    <span class="badge-minimal d-inline-block mb-2">{{ $rec['level'] }}</span>
                                     <h5 class="h6 fw-semibold mb-1">{{ $rec['title'] }}</h5>
                                     <small class="text-secondary">{{ $rec['duration'] }}</small>
                                     @if(isset($rec['description']))
@@ -341,8 +399,8 @@
                     @foreach($foodRecommendations as $food)
                     <div class="col-md-6 col-lg-3">
                         <div class="card-minimal h-100 text-center">
-                            <span class="badge-minimal mb-2">{{ $food['type'] }}</span>
-                            <h6 class="fw-semibold mb-1">{{ $food['name'] }}</h6>
+                            <span class="badge-minimal d-inline-block mb-3">{{ $food['type'] }}</span>
+                            <h6 class="fw-semibold mb-2">{{ $food['name'] }}</h6>
                             <p class="text-secondary small mb-2">{{ $food['calories'] }} kal</p>
                             <small class="text-secondary">{{ $food['benefit'] }}</small>
                         </div>
@@ -374,7 +432,7 @@
                                  class="rounded-circle mb-3" style="width: 80px; height: 80px; object-fit: cover;">
                         @else
                             <div class="mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle" 
-                                 style="width: 80px; height: 80px; background: linear-gradient(135deg, #FC5200, #ff6b35);">
+                                 style="width: 80px; height: 80px; background: linear-gradient(135deg, #ba1a1a, #ff5449);">
                                 <span class="fs-3 fw-bold text-white">{{ substr($user->name, 0, 1) }}</span>
                             </div>
                         @endif
@@ -486,6 +544,181 @@
 </div>
 @endif
 
+<style>
+    .streak-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 50px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        transition: all 0.3s ease;
+    }
+
+    .streak-badge.active {
+        background: linear-gradient(135deg, #f59e0b, #fbbf24);
+        border-color: #f59e0b;
+        color: white;
+    }
+
+    .streak-badge.active i {
+        animation: flame 0.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes flame {
+        from { transform: scale(1); }
+        to { transform: scale(1.2); }
+    }
+
+    .streak-count {
+        font-size: 1.1rem;
+    }
+
+    /* Calendar Styles */
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+
+    .calendar-header {
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        padding: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        position: relative;
+        transition: all 0.2s ease;
+        min-height: 50px;
+    }
+
+    .calendar-day:hover:not(.empty) {
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    .calendar-day.empty {
+        background: transparent;
+        border: none;
+    }
+
+    .calendar-day.today {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+    }
+
+    .calendar-day.today .day-number {
+        color: white;
+        font-weight: 700;
+    }
+
+    .calendar-day.past {
+        opacity: 0.5;
+    }
+
+    .day-number {
+        font-weight: 500;
+        font-size: 0.875rem;
+        color: var(--text);
+    }
+
+    .day-indicators {
+        display: flex;
+        gap: 2px;
+        margin-top: 2px;
+    }
+
+    .indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.6rem;
+    }
+
+    .indicator.activity {
+        background: #22c55e;
+        color: white;
+    }
+
+    .indicator.recommended {
+        background: var(--primary-light);
+        color: var(--primary);
+    }
+
+    .calendar-day.today .indicator.recommended {
+        background: rgba(255,255,255,0.3);
+        color: white;
+    }
+
+    /* Dashboard text color fixes */
+    [data-theme="dark"] .card-minimal h4,
+    [data-theme="dark"] .card-minimal h5,
+    [data-theme="dark"] .card-minimal h6,
+    [data-theme="dark"] .card-minimal .fw-bold,
+    [data-theme="dark"] .card-minimal .fw-semibold {
+        color: #f5f5f5 !important;
+    }
+
+    [data-theme="light"] .card-minimal h4,
+    [data-theme="light"] .card-minimal h5,
+    [data-theme="light"] .card-minimal h6,
+    [data-theme="light"] .card-minimal .fw-bold,
+    [data-theme="light"] .card-minimal .fw-semibold {
+        color: #1a1a1a !important;
+    }
+
+    [data-theme="dark"] .card-minimal .text-secondary,
+    [data-theme="dark"] .card-minimal small {
+        color: #a0a0a0 !important;
+    }
+
+    [data-theme="light"] .card-minimal .text-secondary,
+    [data-theme="light"] .card-minimal small {
+        color: #6c757d !important;
+    }
+
+    /* Fix profile card text */
+    [data-theme="dark"] .fw-medium {
+        color: #e0e0e0 !important;
+    }
+
+    [data-theme="light"] .fw-medium {
+        color: #1a1a1a !important;
+    }
+
+    /* Fix dashboard header */
+    [data-theme="dark"] .h2.fw-bold {
+        color: #f5f5f5 !important;
+    }
+
+    [data-theme="light"] .h2.fw-bold {
+        color: #1a1a1a !important;
+    }
+
+    /* Badge spacing in dashboard */
+    .badge-minimal {
+        margin-bottom: 0.75rem;
+    }
+</style>
 @endsection
 
 @section('scripts')
@@ -510,7 +743,7 @@
                     datasets: [{
                         label: 'Kalori Terbakar',
                         data: chartData.calories,
-                        backgroundColor: 'rgba(252, 82, 0, 0.8)',
+                        backgroundColor: 'rgba(186, 26, 26, 0.8)',
                         borderRadius: 8,
                         borderSkipped: false,
                     }]

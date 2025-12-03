@@ -67,9 +67,9 @@
 <section id="features" class="section-padding bg-secondary">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="badge-minimal mb-3">Features</span>
-            <h2 class="section-title">Everything you need</h2>
-            <p class="section-subtitle mx-auto">
+            <span class="badge-minimal">Features</span>
+            <h2 class="section-title mt-3">Everything you need</h2>
+            <p class="section-subtitle mx-auto mt-3">
                 Powerful tools to help you reach your fitness goals, all in one place.
             </p>
         </div>
@@ -154,9 +154,9 @@
 <section class="section-padding">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="badge-minimal mb-3">How it works</span>
-            <h2 class="section-title">Start in minutes</h2>
-            <p class="section-subtitle mx-auto">
+            <span class="badge-minimal">How it works</span>
+            <h2 class="section-title mt-3">Start in minutes</h2>
+            <p class="section-subtitle mx-auto mt-3">
                 Getting started is simple. Just three steps to begin your journey.
             </p>
         </div>
@@ -205,9 +205,9 @@
 <section class="section-padding bg-secondary">
     <div class="container">
         <div class="text-center mb-5">
-            <span class="badge-minimal mb-3">Testimonials</span>
-            <h2 class="section-title">Loved by thousands</h2>
-            <p class="section-subtitle mx-auto">
+            <span class="badge-minimal">Testimonials</span>
+            <h2 class="section-title mt-3">Loved by thousands</h2>
+            <p class="section-subtitle mx-auto mt-3">
                 See what our users have to say about their experience.
             </p>
         </div>
@@ -285,12 +285,12 @@
 <!-- CTA SECTION -->
 <section class="section-padding">
     <div class="container">
-        <div class="card-minimal text-center" style="background: linear-gradient(135deg, #FC5200 0%, #ff6b35 100%); border: none; padding: 4rem 2rem;">
-            <h2 class="section-title text-white mb-3">Ready to start your journey?</h2>
-            <p class="text-white opacity-75 mb-4 mx-auto" style="max-width: 600px;">
+        <div class="card-minimal text-center" style="background: linear-gradient(135deg, #ba1a1a 0%, #ff5449 100%); border: none; padding: 4rem 2rem;">
+            <h2 class="section-title mb-3" style="color: #ffffff !important;">Ready to start your journey?</h2>
+            <p class="mb-4 mx-auto" style="max-width: 600px; color: rgba(255, 255, 255, 0.95) !important;">
                 Join thousands of athletes who are already tracking their fitness with Fitkomove.
             </p>
-            <a href="{{ route('register') }}" class="btn btn-lg px-5" style="background-color: white; color: var(--primary); font-weight: 600;">
+            <a href="{{ route('register') }}" class="btn btn-lg px-5" style="background-color: #ffffff; color: #1a1a1a !important; font-weight: 700;">
                 Get started free
             </a>
         </div>

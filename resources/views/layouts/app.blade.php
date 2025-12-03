@@ -16,8 +16,9 @@
     <style>
         /* ===== CSS VARIABLES ===== */
         :root {
-            --primary: #FC5200;
-            --primary-hover: #e04a00;
+            --primary: #ba1a1a;
+            --primary-hover: #991b1b;
+            --primary-light: rgba(186, 26, 26, 0.1);
             --bg: #ffffff;
             --bg-secondary: #f8f9fa;
             --text: #1a1a1a;
@@ -29,8 +30,9 @@
         }
 
         [data-theme="dark"] {
-            --primary: #FF6B35;
-            --primary-hover: #ff8555;
+            --primary: #ff5449;
+            --primary-hover: #ff897d;
+            --primary-light: rgba(255, 84, 73, 0.15);
             --bg: #0f0f0f;
             --bg-secondary: #1a1a1a;
             --text: #f5f5f5;
@@ -128,6 +130,7 @@
         .btn-primary {
             background-color: var(--primary);
             border-color: var(--primary);
+            color: #ffffff !important;
             font-weight: 600;
             padding: 0.75rem 1.5rem;
             border-radius: 10px;
@@ -137,6 +140,7 @@
         .btn-primary:hover {
             background-color: var(--primary-hover);
             border-color: var(--primary-hover);
+            color: #ffffff !important;
             transform: translateY(-1px);
         }
 
@@ -182,7 +186,7 @@
         .form-control:focus {
             background-color: var(--bg);
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(252, 82, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.15);
             color: var(--text);
         }
 
@@ -198,13 +202,136 @@
 
         /* ===== BADGES ===== */
         .badge-minimal {
-            background-color: var(--bg-secondary);
-            color: var(--text-secondary);
-            font-weight: 500;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
             font-size: 0.75rem;
             padding: 0.5rem 1rem;
             border-radius: 50px;
+            border: 1px solid transparent;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== NOTIFICATION TOAST ===== */
+        .notification-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 380px;
+        }
+
+        .notification-toast {
+            background-color: var(--card-bg);
             border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            box-shadow: 0 10px 40px var(--shadow);
+            animation: slideInRight 0.4s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .notification-toast.hiding {
+            animation: slideOutRight 0.3s ease forwards;
+        }
+
+        .notification-toast .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notification-toast .notification-icon i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .notification-toast .notification-content {
+            flex: 1;
+        }
+
+        .notification-toast .notification-title {
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text);
+        }
+
+        .notification-toast .notification-message {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .notification-toast .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0;
+            font-size: 1.2rem;
+            line-height: 1;
+            opacity: 0.5;
+            transition: opacity 0.2s;
+        }
+
+        .notification-toast .notification-close:hover {
+            opacity: 1;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Notification bell animation */
+        .notification-bell {
+            position: relative;
+        }
+
+        .notification-bell.has-notifications::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
 
         /* ===== FLOATING CARD (Hero Section) ===== */
@@ -216,7 +343,7 @@
 
         /* ===== TYPOGRAPHY DARK MODE FIX ===== */
         h1, h2, h3, h4, h5, h6 {
-            color: var(--text);
+            color: var(--text) !important;
         }
 
         p {
@@ -224,17 +351,21 @@
         }
 
         .fw-bold, .fw-semibold {
-            color: var(--text);
+            color: var(--text) !important;
         }
 
         /* Ensure display headings use theme color */
         .display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
-            color: var(--text);
+            color: var(--text) !important;
         }
 
         /* Fix for Bootstrap text utilities in dark mode */
         [data-theme="dark"] .text-dark {
             color: var(--text) !important;
+        }
+
+        [data-theme="light"] .text-dark {
+            color: #1a1a1a !important;
         }
 
         [data-theme="dark"] .bg-white {
@@ -243,6 +374,38 @@
 
         [data-theme="dark"] .text-muted {
             color: var(--text-secondary) !important;
+        }
+
+        [data-theme="light"] .text-muted {
+            color: #6c757d !important;
+        }
+
+        /* Force text colors for both modes */
+        [data-theme="dark"] h1,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3,
+        [data-theme="dark"] h4,
+        [data-theme="dark"] h5,
+        [data-theme="dark"] h6 {
+            color: #f5f5f5 !important;
+        }
+
+        [data-theme="light"] h1,
+        [data-theme="light"] h2,
+        [data-theme="light"] h3,
+        [data-theme="light"] h4,
+        [data-theme="light"] h5,
+        [data-theme="light"] h6 {
+            color: #1a1a1a !important;
+        }
+
+        /* Fix white text issue in light mode */
+        [data-theme="light"] .text-white {
+            color: #ffffff !important;
+        }
+
+        [data-theme="dark"] .text-white {
+            color: #ffffff !important;
         }
 
         /* Dropdown menu dark mode */
@@ -338,13 +501,15 @@
             font-size: 2.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
-            color: var(--text);
+            margin-top: 0.5rem;
+            color: var(--text) !important;
         }
 
         .section-subtitle {
-            color: var(--text-secondary);
+            color: var(--text-secondary) !important;
             font-size: 1.1rem;
             max-width: 600px;
+            margin-top: 0.5rem;
         }
 
         .bg-secondary {
@@ -400,6 +565,30 @@
             color: var(--primary) !important;
         }
 
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-social-link {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary) !important;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social-link:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
         .footer .list-unstyled li {
             color: var(--text-secondary);
         }
@@ -452,12 +641,67 @@
         /* ===== ADDITIONAL DARK MODE FIXES ===== */
         /* Lead text */
         .lead {
-            color: var(--text-secondary);
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .lead {
+            color: #b0b0b0 !important;
+        }
+
+        [data-theme="light"] .lead {
+            color: #6c757d !important;
         }
 
         /* Small text */
         small {
-            color: var(--text-secondary);
+            color: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] small {
+            color: #a0a0a0 !important;
+        }
+
+        [data-theme="light"] small {
+            color: #6c757d !important;
+        }
+
+        /* Paragraph text fix */
+        [data-theme="dark"] p {
+            color: #e0e0e0;
+        }
+
+        [data-theme="light"] p {
+            color: #1a1a1a;
+        }
+
+        /* Card text fix */
+        [data-theme="dark"] .card-minimal p,
+        [data-theme="dark"] .card-minimal .text-secondary {
+            color: #b0b0b0 !important;
+        }
+
+        [data-theme="light"] .card-minimal p,
+        [data-theme="light"] .card-minimal .text-secondary {
+            color: #6c757d !important;
+        }
+
+        /* Feature card title fix */
+        [data-theme="dark"] .card-minimal h4,
+        [data-theme="dark"] .card-minimal h5,
+        [data-theme="dark"] .card-minimal h6,
+        [data-theme="dark"] .card-minimal .h4,
+        [data-theme="dark"] .card-minimal .h5,
+        [data-theme="dark"] .card-minimal .h6 {
+            color: #f5f5f5 !important;
+        }
+
+        [data-theme="light"] .card-minimal h4,
+        [data-theme="light"] .card-minimal h5,
+        [data-theme="light"] .card-minimal h6,
+        [data-theme="light"] .card-minimal .h4,
+        [data-theme="light"] .card-minimal .h5,
+        [data-theme="light"] .card-minimal .h6 {
+            color: #1a1a1a !important;
         }
 
         /* Border utilities */
@@ -467,11 +711,11 @@
 
         /* Background primary with opacity */
         .bg-primary.bg-opacity-10 {
-            background-color: rgba(252, 82, 0, 0.1) !important;
+            background-color: rgba(186, 26, 26, 0.1) !important;
         }
 
         [data-theme="dark"] .bg-primary.bg-opacity-10 {
-            background-color: rgba(255, 107, 53, 0.15) !important;
+            background-color: rgba(255, 84, 73, 0.15) !important;
         }
 
         /* Fix for any remaining white backgrounds */
@@ -615,9 +859,12 @@
                         <a href="{{ route('register') }}" class="btn btn-primary">Get Started</a>
                     @else
                         <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                        <a href="{{ route('workouts.index') }}" class="nav-link d-none d-md-inline">
+                            <i class="bi bi-lightning-charge me-1"></i>Workout
+                        </a>
                         <a href="{{ route('activities.index') }}" class="nav-link d-none d-md-inline">Aktivitas</a>
                         <a href="{{ route('schedules.index') }}" class="nav-link d-none d-md-inline">Jadwal</a>
-                        <a href="{{ route('reminders.index') }}" class="nav-link d-none d-md-inline">
+                        <a href="{{ route('reminders.index') }}" class="nav-link d-none d-md-inline notification-bell" id="reminderBell">
                             <i class="bi bi-bell"></i>
                         </a>
                     @endguest
@@ -632,6 +879,9 @@
         </div>
     </nav>
 
+    <!-- Notification Container -->
+    <div id="notificationContainer" class="notification-container"></div>
+
     <!-- Main Content -->
     <main>
         @yield('content')
@@ -640,45 +890,55 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="row g-4">
+                <div class="col-lg-5 mb-4 mb-lg-0">
                     <h5 class="fw-bold mb-3" style="color: var(--primary);">Fitkomove</h5>
-                    <p class="text-secondary small">
-                        Track your fitness journey with precision. Simple, powerful, and designed for athletes.
+                    <p class="text-secondary small mb-4" style="max-width: 350px;">
+                        Track your fitness journey with precision. Simple, powerful, and designed for athletes who want to achieve more.
                     </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="footer-social-link"><i class="bi bi-github"></i></a>
+                    </div>
                 </div>
                 <div class="col-6 col-lg-2">
                     <h6 class="fw-semibold mb-3">Product</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">Features</a></li>
-                        <li class="mb-2"><a href="#">Pricing</a></li>
-                        <li class="mb-2"><a href="#">Download</a></li>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="{{ route('features') }}">Features</a></li>
+                        <li><a href="{{ route('coming-soon', 'pricing') }}">Pricing</a></li>
+                        <li><a href="{{ route('coming-soon', 'download') }}">Download</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-lg-2">
                     <h6 class="fw-semibold mb-3">Company</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#">About</a></li>
-                        <li class="mb-2"><a href="#">Blog</a></li>
-                        <li class="mb-2"><a href="#">Careers</a></li>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="{{ route('features') }}">About</a></li>
+                        <li><a href="{{ route('coming-soon', 'blog') }}">Blog</a></li>
+                        <li><a href="{{ route('coming-soon', 'careers') }}">Careers</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-4">
-                    <h6 class="fw-semibold mb-3">Stay Updated</h6>
-                    <p class="text-secondary small mb-3">Subscribe to our newsletter for tips and updates.</p>
-                    <div class="d-flex gap-2">
-                        <input type="email" class="form-control" placeholder="Enter your email">
-                        <button class="btn btn-primary">Subscribe</button>
-                    </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-semibold mb-3">Get Started</h6>
+                    <p class="text-secondary small mb-3">Mulai perjalanan fitness Anda hari ini.</p>
+                    @guest
+                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-person-plus me-2"></i>Daftar Gratis
+                    </a>
+                    @else
+                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm w-100">
+                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                    </a>
+                    @endguest
                 </div>
             </div>
             <hr class="my-4" style="border-color: var(--border);">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="text-secondary small mb-2 mb-md-0">&copy; {{ date('Y') }} Fitkomove. All rights reserved.</p>
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-secondary"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="text-secondary"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-secondary"><i class="bi bi-facebook"></i></a>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <p class="text-secondary small mb-0">&copy; {{ date('Y') }} Fitkomove. All rights reserved.</p>
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-secondary small text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-secondary small text-decoration-none">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -726,6 +986,236 @@
             });
         })();
     </script>
+
+    <!-- Live Notification System -->
+    @auth
+    <script>
+        (function() {
+            const notificationContainer = document.getElementById('notificationContainer');
+            const reminderBell = document.getElementById('reminderBell');
+            let triggeredReminders = JSON.parse(localStorage.getItem('triggeredReminders') || '{}');
+            let reminders = [];
+            let lastCheckMinute = -1;
+
+            // Clean up old triggered reminders (older than 24 hours)
+            const now = Date.now();
+            Object.keys(triggeredReminders).forEach(key => {
+                if (now - triggeredReminders[key] > 24 * 60 * 60 * 1000) {
+                    delete triggeredReminders[key];
+                }
+            });
+            localStorage.setItem('triggeredReminders', JSON.stringify(triggeredReminders));
+
+            // Request notification permission immediately
+            if ('Notification' in window) {
+                if (Notification.permission === 'default') {
+                    Notification.requestPermission();
+                }
+            }
+
+            // Fetch today's reminders
+            async function fetchReminders() {
+                try {
+                    const response = await fetch('{{ route("reminders.today") }}', {
+                        cache: 'no-store',
+                        headers: { 'Cache-Control': 'no-cache' }
+                    });
+                    if (response.ok) {
+                        reminders = await response.json();
+                        updateBellIndicator();
+                        console.log('[Fitkomove] Loaded', reminders.length, 'reminders');
+                    }
+                } catch (error) {
+                    console.log('[Fitkomove] Could not fetch reminders:', error);
+                }
+            }
+
+            // Update bell indicator
+            function updateBellIndicator() {
+                if (reminderBell) {
+                    const hasActiveReminders = reminders.some(r => r.is_active);
+                    if (hasActiveReminders) {
+                        reminderBell.classList.add('has-notifications');
+                    } else {
+                        reminderBell.classList.remove('has-notifications');
+                    }
+                }
+            }
+
+            // Show in-app notification toast
+            function showToast(reminder) {
+                const toast = document.createElement('div');
+                toast.className = 'notification-toast';
+                toast.innerHTML = `
+                    <div class="notification-icon">
+                        <i class="bi ${reminder.type_icon || 'bi-bell'}"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">${reminder.title}</div>
+                        <p class="notification-message">${reminder.message || 'Waktunya untuk ' + reminder.title}</p>
+                    </div>
+                    <button class="notification-close" onclick="this.parentElement.remove()">
+                        <i class="bi bi-x"></i>
+                    </button>
+                `;
+                notificationContainer.appendChild(toast);
+
+                // Play notification sound
+                playNotificationSound();
+
+                // Auto remove after 15 seconds
+                setTimeout(() => {
+                    if (toast.parentElement) {
+                        toast.classList.add('hiding');
+                        setTimeout(() => toast.remove(), 300);
+                    }
+                }, 15000);
+            }
+
+            // Show browser notification
+            function showBrowserNotification(reminder) {
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    const notification = new Notification('🔔 Fitkomove - ' + reminder.title, {
+                        body: reminder.message || 'Waktunya untuk ' + reminder.title,
+                        icon: '/favicon.ico',
+                        badge: '/favicon.ico',
+                        tag: 'reminder-' + reminder.id,
+                        requireInteraction: true,
+                        silent: false
+                    });
+
+                    notification.onclick = function() {
+                        window.focus();
+                        notification.close();
+                    };
+
+                    // Auto close after 30 seconds
+                    setTimeout(() => notification.close(), 30000);
+                }
+            }
+
+            // Play notification sound
+            function playNotificationSound() {
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    
+                    // Resume audio context if suspended (required for some browsers)
+                    if (audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+
+                    const playTone = (freq, startTime, duration) => {
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.value = freq;
+                        oscillator.type = 'sine';
+                        gainNode.gain.setValueAtTime(0.15, startTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration);
+                        
+                        oscillator.start(startTime);
+                        oscillator.stop(startTime + duration);
+                    };
+
+                    const now = audioContext.currentTime;
+                    playTone(800, now, 0.15);
+                    playTone(1000, now + 0.15, 0.15);
+                    playTone(1200, now + 0.3, 0.2);
+                } catch (e) {
+                    console.log('[Fitkomove] Audio not supported');
+                }
+            }
+
+            // Parse time string to minutes since midnight
+            function timeToMinutes(timeStr) {
+                if (!timeStr) return -1;
+                // Handle both "HH:MM" and "HH:MM:SS" formats
+                const parts = timeStr.split(':');
+                if (parts.length >= 2) {
+                    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+                }
+                return -1;
+            }
+
+            // Check reminders - runs every second for precision
+            function checkReminders() {
+                const now = new Date();
+                const currentMinutes = now.getHours() * 60 + now.getMinutes();
+                const today = now.toDateString();
+
+                // Only check once per minute to avoid duplicate notifications
+                if (currentMinutes === lastCheckMinute) {
+                    return;
+                }
+                lastCheckMinute = currentMinutes;
+
+                const currentTimeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                                       now.getMinutes().toString().padStart(2, '0');
+
+                console.log('[Fitkomove] Checking reminders at', currentTimeStr);
+
+                reminders.forEach(reminder => {
+                    if (!reminder.is_active) return;
+
+                    // Get reminder time - try multiple formats
+                    let reminderTimeStr = reminder.formatted_time || reminder.reminder_time;
+                    
+                    // Normalize time format (remove seconds if present)
+                    if (reminderTimeStr && reminderTimeStr.length > 5) {
+                        reminderTimeStr = reminderTimeStr.substring(0, 5);
+                    }
+
+                    const reminderKey = reminder.id + '-' + today;
+
+                    // Check if time matches and hasn't been triggered today
+                    if (reminderTimeStr === currentTimeStr && !triggeredReminders[reminderKey]) {
+                        console.log('[Fitkomove] 🔔 Triggering reminder:', reminder.title);
+                        
+                        // Mark as triggered immediately
+                        triggeredReminders[reminderKey] = Date.now();
+                        localStorage.setItem('triggeredReminders', JSON.stringify(triggeredReminders));
+
+                        // Show notifications
+                        showToast(reminder);
+                        showBrowserNotification(reminder);
+                    }
+                });
+            }
+
+            // Initialize system
+            async function init() {
+                console.log('[Fitkomove] Initializing notification system...');
+                await fetchReminders();
+                
+                // Check immediately
+                checkReminders();
+                
+                // Check every 5 seconds for more responsive notifications
+                setInterval(checkReminders, 5000);
+                
+                // Refresh reminders from server every 2 minutes
+                setInterval(fetchReminders, 2 * 60 * 1000);
+
+                // Also refresh when page becomes visible again
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') {
+                        console.log('[Fitkomove] Page visible, refreshing reminders...');
+                        fetchReminders();
+                        checkReminders();
+                    }
+                });
+
+                console.log('[Fitkomove] Notification system ready!');
+            }
+
+            // Start the system
+            init();
+        })();
+    </script>
+    @endauth
 
     @yield('scripts')
 </body>

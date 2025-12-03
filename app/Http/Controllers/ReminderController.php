@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class ReminderController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of reminders.
      */
     public function index()
@@ -128,7 +136,21 @@ class ReminderController extends Controller
         $reminders = $user->reminders()
             ->active()
             ->get()
-            ->filter(fn($r) => $r->isActiveToday());
+            ->filter(fn($r) => $r->isActiveToday())
+            ->map(function($r) {
+                return [
+                    'id' => $r->id,
+                    'title' => $r->title,
+                    'message' => $r->message,
+                    'type' => $r->type,
+                    'type_icon' => $r->type_icon,
+                    'type_label' => $r->type_label,
+                    'reminder_time' => date('H:i', strtotime($r->reminder_time)),
+                    'formatted_time' => $r->formatted_time,
+                    'is_active' => $r->is_active,
+                ];
+            })
+            ->values();
 
         return response()->json($reminders);
     }

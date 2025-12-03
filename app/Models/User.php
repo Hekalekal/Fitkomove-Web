@@ -29,6 +29,10 @@ class User extends Authenticatable
         'goal',
         'intensity_level',
         'onboarding_completed',
+        'current_streak',
+        'longest_streak',
+        'last_activity_date',
+        'streak_freezes',
     ];
 
     protected $hidden = [
@@ -46,6 +50,7 @@ class User extends Authenticatable
             'weight' => 'float',
             'target_weight' => 'float',
             'onboarding_completed' => 'boolean',
+            'last_activity_date' => 'date',
         ];
     }
 
@@ -71,6 +76,14 @@ class User extends Authenticatable
     public function reminders(): HasMany
     {
         return $this->hasMany(Reminder::class);
+    }
+
+    /**
+     * Get user's workout sessions
+     */
+    public function workoutSessions(): HasMany
+    {
+        return $this->hasMany(WorkoutSession::class);
     }
 
     /**
@@ -165,5 +178,43 @@ class User extends Authenticatable
         return $this->activities()
             ->whereBetween('activity_date', [now()->startOfWeek(), now()->endOfWeek()])
             ->sum('duration_minutes') ?? 0;
+    }
+
+    /**
+     * Check if user has activity today
+     */
+    public function hasActivityToday(): bool
+    {
+        return $this->last_activity_date && $this->last_activity_date->isToday();
+    }
+
+    /**
+     * Update user's workout streak
+     */
+    public function updateStreak(): void
+    {
+        $today = now()->startOfDay();
+        $lastActivityDate = $this->last_activity_date;
+
+        // Already worked out today, no update needed
+        if ($lastActivityDate && $lastActivityDate->isSameDay($today)) {
+            return;
+        }
+
+        // Check if last activity was yesterday (consecutive day)
+        if ($lastActivityDate && $lastActivityDate->isSameDay($today->copy()->subDay())) {
+            $this->current_streak++;
+        } else {
+            // Streak broken - reset to 1
+            $this->current_streak = 1;
+        }
+
+        // Update longest streak if current is higher
+        if ($this->current_streak > $this->longest_streak) {
+            $this->longest_streak = $this->current_streak;
+        }
+
+        $this->last_activity_date = $today;
+        $this->save();
     }
 }

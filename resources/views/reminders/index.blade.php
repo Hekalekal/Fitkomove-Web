@@ -31,7 +31,7 @@
         <div class="col-md-6 col-lg-4">
             <div class="card-minimal h-100 {{ !$reminder->is_active ? 'opacity-50' : '' }}">
                 <div class="d-flex align-items-start justify-content-between mb-3">
-                    <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                    <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                         <i class="bi {{ $reminder->type_icon }} fs-4" style="color: var(--primary);"></i>
                     </div>
                     <div class="dropdown">

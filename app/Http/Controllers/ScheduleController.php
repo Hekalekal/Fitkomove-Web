@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class ScheduleController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of schedules.
      */
     public function index()
@@ -48,6 +56,15 @@ class ScheduleController extends Controller
 
         return redirect()->route('schedules.index')
             ->with('success', 'Jadwal berhasil ditambahkan!');
+    }
+
+    /**
+     * Display the specified schedule.
+     */
+    public function show(Schedule $schedule)
+    {
+        $this->authorize('view', $schedule);
+        return view('schedules.show', compact('schedule'));
     }
 
     /**

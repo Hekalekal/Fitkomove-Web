@@ -31,7 +31,7 @@
         <div class="card-minimal">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3">
-                    <div class="rounded-3 p-3" style="background-color: rgba(252, 82, 0, 0.1);">
+                    <div class="rounded-3 p-3" style="background-color: var(--primary-light);">
                         <i class="bi {{ $activity->type_icon }} fs-4" style="color: var(--primary);"></i>
                     </div>
                     <div>
