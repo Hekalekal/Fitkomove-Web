@@ -49,16 +49,16 @@
                     <span class="badge {{ $schedule->status_badge }}">{{ $schedule->status_label }}</span>
                     
                     @if($schedule->status === 'pending')
-                    <div class="d-flex gap-1">
+                    <div class="d-flex gap-2">
                         <form action="{{ route('schedules.complete', $schedule) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-outline" title="Selesai">
+                            <button type="submit" class="btn btn-sm btn-action-complete" title="Selesai">
                                 <i class="bi bi-check-lg"></i>
                             </button>
                         </form>
                         <form action="{{ route('schedules.skip', $schedule) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-sm btn-outline" title="Lewati">
+                            <button type="submit" class="btn btn-sm btn-action-skip" title="Lewati">
                                 <i class="bi bi-x-lg"></i>
                             </button>
                         </form>
@@ -100,4 +100,60 @@
     </div>
     @endif
 </div>
+
+<style>
+    .btn-action-complete,
+    .btn-action-skip {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-action-complete {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+
+    .btn-action-complete:hover {
+        background: #d1fae5;
+        border-color: #10b981;
+        color: #10b981;
+    }
+
+    [data-theme="dark"] .btn-action-complete:hover {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: #10b981;
+        color: #34d399;
+    }
+
+    .btn-action-skip {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+
+    .btn-action-skip:hover {
+        background: #fee2e2;
+        border-color: #fca5a5;
+        color: #dc2626;
+    }
+
+    [data-theme="dark"] .btn-action-skip:hover {
+        background: rgba(220, 38, 38, 0.2);
+        border-color: #dc2626;
+        color: #f87171;
+    }
+
+    .btn-action-complete:focus,
+    .btn-action-skip:focus {
+        box-shadow: 0 0 0 3px var(--primary-light) !important;
+        outline: none;
+    }
+</style>
 @endsection

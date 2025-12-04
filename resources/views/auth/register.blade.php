@@ -62,8 +62,8 @@
                 <div class="text-center mt-4 pt-3 border-top">
                     <small class="text-secondary">
                         By signing up, you agree to our 
-                        <a href="#" class="text-decoration-none" style="color: var(--primary);">Terms</a> and 
-                        <a href="#" class="text-decoration-none" style="color: var(--primary);">Privacy Policy</a>
+                        <a href="{{ route('terms') }}" class="text-decoration-none" style="color: var(--primary);">Terms</a> and 
+                        <a href="{{ route('privacy') }}" class="text-decoration-none" style="color: var(--primary);">Privacy Policy</a>
                     </small>
                 </div>
             </div>

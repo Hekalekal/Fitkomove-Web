@@ -14,6 +14,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Fitkomove')</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('assets/fitkomovelogo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/fitkomovelogo.png') }}">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -168,6 +172,24 @@
             background-color: var(--bg-secondary);
             border-color: var(--primary);
             color: var(--primary);
+        }
+
+        /* Button Focus States - Remove blue outline */
+        .btn:focus,
+        .btn:focus-visible,
+        .btn:active:focus {
+            box-shadow: 0 0 0 3px var(--primary-light) !important;
+            outline: none !important;
+        }
+
+        .btn-primary:focus,
+        .btn-primary:focus-visible {
+            box-shadow: 0 0 0 3px rgba(186, 26, 26, 0.3) !important;
+        }
+
+        [data-theme="dark"] .btn-primary:focus,
+        [data-theme="dark"] .btn-primary:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 84, 73, 0.3) !important;
         }
 
         /* ===== CARDS ===== */
@@ -597,6 +619,10 @@
             border-color: var(--primary);
             color: white !important;
             transform: translateY(-2px);
+        }
+
+        .footer-social-link:hover i {
+            color: white !important;
         }
 
         .footer .list-unstyled li {
@@ -1135,16 +1161,13 @@
     <footer class="footer">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="col-lg-4 mb-4 mb-lg-0">
                     <h5 class="fw-bold mb-3" style="color: var(--primary);">Fitkomove</h5>
                     <p class="text-secondary small mb-4" style="max-width: 350px;">
                         Track your fitness journey with precision. Simple, powerful, and designed for athletes who want to achieve more.
                     </p>
                     <div class="d-flex gap-3">
-                        <a href="#" class="footer-social-link"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="footer-social-link"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="footer-social-link"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="footer-social-link"><i class="bi bi-github"></i></a>
+                        <a href="https://github.com/SwipeLz/fitkomove_private" target="_blank" rel="noopener noreferrer" class="footer-social-link"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
                 <div class="col-6 col-lg-2">
@@ -1163,26 +1186,21 @@
                         <li><a href="{{ route('coming-soon', 'careers') }}">Careers</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3">
-                    <h6 class="fw-semibold mb-3">Get Started</h6>
-                    <p class="text-secondary small mb-3">Mulai perjalanan fitness Anda hari ini.</p>
-                    @guest
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-sm w-100">
-                        <i class="bi bi-person-plus me-2"></i>Daftar Gratis
-                    </a>
-                    @else
-                    <a href="{{ route('dashboard') }}" class="btn btn-primary btn-sm w-100">
-                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
-                    </a>
-                    @endguest
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-semibold mb-3">Support</h6>
+                    <ul class="list-unstyled footer-links">
+                        <li><a href="{{ route('coming-soon', 'help') }}">Help Center</a></li>
+                        <li><a href="{{ route('coming-soon', 'contact') }}">Contact Us</a></li>
+                        <li><a href="{{ route('coming-soon', 'faq') }}">FAQ</a></li>
+                    </ul>
                 </div>
             </div>
             <hr class="my-4" style="border-color: var(--border);">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
                 <p class="text-secondary small mb-0">&copy; {{ date('Y') }} Fitkomove. All rights reserved.</p>
                 <div class="d-flex gap-4">
-                    <a href="#" class="text-secondary small text-decoration-none">Privacy Policy</a>
-                    <a href="#" class="text-secondary small text-decoration-none">Terms of Service</a>
+                    <a href="{{ route('privacy') }}" class="text-secondary small text-decoration-none">Privacy Policy</a>
+                    <a href="{{ route('terms') }}" class="text-secondary small text-decoration-none">Terms of Service</a>
                 </div>
             </div>
         </div>

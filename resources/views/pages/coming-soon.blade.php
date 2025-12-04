@@ -79,10 +79,7 @@
                 <div class="social-links mt-5">
                     <p class="text-secondary small mb-3">Ikuti kami untuk update terbaru:</p>
                     <div class="d-flex gap-3 justify-content-center">
-                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="bi bi-github"></i></a>
+                        <a href="https://github.com/SwipeLz/fitkomove_private" target="_blank" rel="noopener noreferrer" class="social-link"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
             </div>
@@ -272,6 +269,10 @@
         border-color: var(--primary);
         color: white;
         transform: translateY(-3px);
+    }
+
+    .social-link:hover i {
+        color: white !important;
     }
 
     /* Text color fixes for coming-soon page */

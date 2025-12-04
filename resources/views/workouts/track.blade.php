@@ -90,14 +90,14 @@
                                                     <span class="input-group-text">s</span>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm complete-set-btn {{ $set->is_completed ? 'btn-success' : 'btn-outline' }}">
+                                            <td class="text-center align-middle">
+                                                <button type="button" class="btn btn-sm action-btn complete-set-btn {{ $set->is_completed ? 'btn-completed' : 'btn-incomplete' }}">
                                                     <i class="bi bi-check-lg"></i>
                                                 </button>
                                             </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm text-danger delete-set-btn">
-                                                    <i class="bi bi-x"></i>
+                                            <td class="text-center align-middle">
+                                                <button type="button" class="btn btn-sm action-btn delete-set-btn btn-delete">
+                                                    <i class="bi bi-x-lg"></i>
                                                 </button>
                                             </td>
                                         </tr>
@@ -253,7 +253,78 @@
         letter-spacing: 0.5px;
     }
 
-    .complete-set-btn.btn-success {
+    /* Action Buttons */
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .action-btn:focus {
+        box-shadow: 0 0 0 3px var(--primary-light) !important;
+        outline: none;
+    }
+
+    /* Complete Button - Incomplete State */
+    .btn-incomplete {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+
+    .btn-incomplete:hover {
+        background: var(--primary-light);
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+
+    /* Complete Button - Completed State */
+    .btn-completed {
+        background: var(--primary);
+        border-color: var(--primary);
+        color: white;
+    }
+
+    .btn-completed:hover {
+        background: var(--primary-hover);
+        border-color: var(--primary-hover);
+        color: white;
+    }
+
+    /* Delete Button */
+    .btn-delete {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+    }
+
+    .btn-delete:hover {
+        background: #fee2e2;
+        border-color: #fca5a5;
+        color: #dc2626;
+    }
+
+    [data-theme="dark"] .btn-delete:hover {
+        background: rgba(220, 38, 38, 0.2);
+        border-color: #dc2626;
+        color: #f87171;
+    }
+
+    /* Remove default blue focus for all buttons */
+    .btn:focus,
+    .btn:active,
+    .btn:focus-visible {
+        box-shadow: 0 0 0 3px var(--primary-light) !important;
+        outline: none !important;
+    }
+
+    /* Rest preset buttons active state */
+    .rest-preset.active {
         background: var(--primary);
         border-color: var(--primary);
         color: white;
@@ -428,8 +499,8 @@
 
             if (response.ok) {
                 row.classList.toggle('completed');
-                this.classList.toggle('btn-success');
-                this.classList.toggle('btn-outline');
+                this.classList.toggle('btn-completed');
+                this.classList.toggle('btn-incomplete');
                 updateStats();
                 
                 // Auto start rest timer

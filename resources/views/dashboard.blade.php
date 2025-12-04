@@ -302,7 +302,7 @@
                             @if(!isset($isDemo) && is_object($schedule) && $schedule->status === 'pending')
                             <form action="{{ route('schedules.complete', $schedule) }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-sm btn-outline" title="Tandai Selesai">
+                                <button type="submit" class="btn btn-sm btn-schedule-complete" title="Tandai Selesai">
                                     <i class="bi bi-check-lg"></i>
                                 </button>
                             </form>
@@ -605,6 +605,38 @@
 
     .streak-count {
         font-size: 1.1rem;
+    }
+
+    /* Schedule Complete Button */
+    .btn-schedule-complete {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        transition: all 0.2s ease;
+    }
+
+    .btn-schedule-complete:hover {
+        background: #d1fae5;
+        border-color: #10b981;
+        color: #10b981;
+    }
+
+    [data-theme="dark"] .btn-schedule-complete:hover {
+        background: rgba(16, 185, 129, 0.2);
+        border-color: #10b981;
+        color: #34d399;
+    }
+
+    .btn-schedule-complete:focus {
+        box-shadow: 0 0 0 3px var(--primary-light) !important;
+        outline: none;
     }
 
     /* Calendar Styles */

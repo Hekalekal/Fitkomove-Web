@@ -102,11 +102,11 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card-minimal h-100">
                     <div class="bg-primary bg-opacity-10 rounded-3 d-inline-flex p-3 mb-4">
-                        <i class="bi bi-people fs-3" style="color: var(--primary);"></i>
+                        <i class="bi bi-egg-fried fs-3" style="color: var(--primary);"></i>
                     </div>
-                    <h4 class="h5 fw-semibold mb-3">Social features</h4>
+                    <h4 class="h5 fw-semibold mb-3">Rekomendasi makanan</h4>
                     <p class="text-secondary mb-0">
-                        Connect with friends, share achievements, and stay motivated together.
+                        Dapatkan rekomendasi makanan sehat yang sesuai dengan kebutuhan kalori dan tujuan fitness Anda.
                     </p>
                 </div>
             </div>

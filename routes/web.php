@@ -18,6 +18,16 @@ Route::get('/features', function () {
     return view('pages.features');
 })->name('features');
 
+// Privacy Policy
+Route::get('/privacy', function () {
+    return view('pages.privacy');
+})->name('privacy');
+
+// Terms of Service
+Route::get('/terms', function () {
+    return view('pages.terms');
+})->name('terms');
+
 // Coming Soon Page
 Route::get('/coming-soon/{page?}', function ($page = null) {
     $pageData = [
