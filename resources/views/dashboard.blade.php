@@ -560,8 +560,11 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Pilih Foto</label>
-                        <input type="file" name="photo" class="form-control" accept="image/*" required>
-                        <small class="text-secondary">Format: JPG, PNG, GIF. Maksimal 2MB.</small>
+                        <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror" accept="image/*" required>
+                        @error('photo')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <small class="text-secondary d-block mt-1">Format: JPG, PNG, GIF. Maksimal 2MB.</small>
                     </div>
                 </div>
                 <div class="modal-footer border-0 pt-0">
